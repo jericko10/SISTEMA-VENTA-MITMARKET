@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="165"/>
+	<parameter name="Anio" class="java.lang.String"/>
+	<parameter name="Mes" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from compra where estado != 'En proceso' AND estado != 'Anulado' AND fechaCompra like concat('%',$P{Anio},'-',$P{Mes},'%') order by montototal DESC limit 5]]>
+	</queryString>
+	<field name="idcompra" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dniCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nroEmpleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaCompra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoCambio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montoTotal" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-19" y="0" width="594" height="131" forecolor="#006699" backcolor="#006699" />
+				<staticText>
+					<reportElement x="9" y="0" width="557" height="131" forecolor="#FFFFFF" />
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="54" isBold="false"/>
+					</textElement>
+					<text><![CDATA[REPORTE MAYORES VENTAS]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="159" y="0" width="258" height="61" />
+				<textElement>
+					<font fontName="Times New Roman" size="36"/>
+				</textElement>
+				<text><![CDATA[5 Mejores Ventas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="301" splitType="Stretch">
+			<staticText>
+				<reportElement x="209" y="266" width="154" height="20" />
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Número de Compra]]></text>
+			</staticText>
+			<pie3DChart>
+				<chart>
+					<reportElement x="15" y="19" width="517" height="234" />
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA["Nro: " + $F{idcompra} + " - " + String.valueOf($F{montoTotal})]]></keyExpression>
+					<valueExpression><![CDATA[$F{montoTotal}]]></valueExpression>
+					<labelExpression><![CDATA["Monto: " + String.valueOf($F{montoTotal})]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</summary>
+</jasperReport>
